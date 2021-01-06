@@ -138,26 +138,33 @@ au CursorHold * checktime
 " line numbers
 :set number relativenumber
 
+" tags
+set tags=tags
+
 " Enhanced keyboard mappings
 "
 
 " in normal mode F3 will save the file
-nmap <F3> :w<CR>
+nmap <C-S> :w<CR>
 " in insert mode F3 will exit insert, save, enters insert again
-imap <F3> <ESC>:w<CR>i
+imap <C-S> <ESC>:w<CR>i
 " autoformat
 nmap <F4> :Autoformat<CR>
 " switch between header/source with F4
 map <F5> :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
 " create doxygen comment
 map <F6> :Dox<CR>
+" remove comment
+map <F7> :call Uncomment()<CR>
+" toggle comment
+map <F8> :call Comment()<CR>
 " build using makeprg with <F7>
-map <F7> :!clear && cd build && cmake --build .<CR>
+map <F9> :!clear && cd build && cmake --build .<CR>
 " build using makeprg with <S-F7>
-map <S-F7> :make clean all<CR>
+map <S-F9> :make clean all<CR>
 " buld and run with <F8>
-map <F8> :!BASENAME=$(basename $(pwd)) && clear && cd build && cmake --build . && ./$BASENAME <CR>
+map <F10> :!BASENAME=$(basename $(pwd)) && clear && cd build && cmake --build . && ./$BASENAME <CR>
 " run
-map <F9> :!BASENAME=$(basename $(pwd)) && clear && cd build && ./$BASENAME
-" goto definition with F12
-map <F10> <C-]>
+map <F11> :!BASENAME=$(basename $(pwd)) && clear && cd build && ./$BASENAME
+" goto definition with F10
+map <F12> <C-]>
