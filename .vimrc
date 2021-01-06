@@ -152,12 +152,12 @@ map <F5> :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
 " create doxygen comment
 map <F6> :Dox<CR>
 " build using makeprg with <F7>
-map <F7> :!cd build && cmake --build .<CR>
+map <F7> :!clear && cd build && cmake --build .<CR>
 " build using makeprg with <S-F7>
 map <S-F7> :make clean all<CR>
 " buld and run with <F8>
-map <F8> :!cd build && cmake --build . && ./effectivec <CR>
+map <F8> :!BASENAME=$(basename $(pwd)) && clear && cd build && cmake --build . && ./$BASENAME <CR>
 " run
-map <F9> :!cd build && ./effectivec
+map <F9> :!BASENAME=$(basename $(pwd)) && clear && cd build && ./$BASENAME
 " goto definition with F12
 map <F10> <C-]>
