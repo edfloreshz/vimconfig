@@ -1,10 +1,15 @@
 Ctrl + P    ->	Search.
 Ctrl + T    ->	Show/Hide tree view.
+Ctrl + O    ->  Jump to previous location.
+Ctrl + J    ->  Jump to next location.
+Ctrl + S    ->  In normal mode will save the file.
+Ctrl + S    ->  In insert mode will exit insert, save, enters insert again.
 F2          ->	Focus on tree view.
-F3          ->  In normal mode F3 will save the file.
-F3          ->  In insert mode F3 will exit insert, save, enters insert again.
 F4          ->  Will autoformat the file.
-F5          ->  Will switch between header/source with F4.
+F5          ->  Will switch between header/source..
 F6          ->  Will create doxygen comment.
-F7          ->  Will build cmake project.
-F10         ->  Will go to definition.
+F8          ->  Will toggle comment.
+F9          ->  Will build the program.
+F10         ->  Will build and run the program.
+F11         ->  Will run the program.
+F12         ->  Will go to definition.
