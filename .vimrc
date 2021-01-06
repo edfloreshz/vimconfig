@@ -2,7 +2,7 @@
 " Description: Optimized for C/Rust development, but useful also for other things.
 " Author: Eduardo Flores
 "
-" Instructions: 
+" Instructions:
 " :source %
 " :PlugInstall
 
@@ -40,6 +40,7 @@ Plug 'chiel92/vim-autoformat'
 call plug#end()
 
 set nocp
+set updatetime=1000
 filetype plugin indent on
 
 " turn syntax highlighting on
@@ -90,7 +91,34 @@ set guifont=PragmataPro
 let g:ycm_rust_src_path="/home/eduardo/Developer/GitHub/rust-master/src/"
 let g:formatterpath = ['/home/eduardo/.cargo/bin/rustfmt', '/usr/bin/clang-format']
 
+map gc :call Comment()<CR>
+map gC :call Uncomment()<CR>
 
+function! Comment()
+	let ft = &filetype
+	if ft == 'php' || ft == 'ruby' || ft == 'sh' || ft == 'make' || ft == 'python' || ft == 'perl'
+		silent s/^/\#/
+	elseif ft == 'javascript' || ft == 'c' || ft == 'cpp' || ft == 'java' || ft == 'objc' || ft == 'scala' || ft == 'go'
+		silent s:^:\/\/:g
+	elseif ft == 'tex'
+		silent s:^:%:g
+	elseif ft == 'vim'
+		silent s:^:\":g
+	endif
+endfunction
+
+function! Uncomment()
+	let ft = &filetype
+	if ft == 'php' || ft == 'ruby' || ft == 'sh' || ft == 'make' || ft == 'python' || ft == 'perl'
+		silent s/^\#//
+	elseif ft == 'javascript' || ft == 'c' || ft == 'cpp' || ft == 'java' || ft == 'objc' || ft == 'scala' || ft == 'go'
+		silent s:^\/\/::g
+	elseif ft == 'tex'
+		silent s:^%::g
+	elseif ft == 'vim'
+		silent s:^\"::g
+	endif
+endfunction
 
 autocmd VimEnter * NERDTree
 autocmd BufEnter * NERDTreeMirror
@@ -107,7 +135,7 @@ set mouse=a
 set autoread
 au CursorHold * checktime
 
-" line numbers 
+" line numbers
 :set number relativenumber
 
 " Enhanced keyboard mappings
@@ -124,8 +152,12 @@ map <F5> :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
 " create doxygen comment
 map <F6> :Dox<CR>
 " build using makeprg with <F7>
-map <F7> :!cmake --build .<CR>
+map <F7> :!cd build && cmake --build .<CR>
 " build using makeprg with <S-F7>
 map <S-F7> :make clean all<CR>
+" buld and run with <F8>
+map <F8> :!cd build && cmake --build . && ./effectivec <CR>
+" run
+map <F9> :!cd build && ./effectivec
 " goto definition with F12
 map <F10> <C-]>
