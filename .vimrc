@@ -2,7 +2,7 @@
 " Description: Optimized for C/Rust development, but useful also for other things.
 " Author: Eduardo Flores
 "
-" Instructions:
+" Instructions: 
 " :source %
 " :PlugInstall
 
@@ -36,6 +36,8 @@ Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
 Plug 'vim-scripts/DoxygenToolkit.vim'
 Plug 'chiel92/vim-autoformat'
+Plug 'scrooloose/nerdcommenter'
+Plug 'szw/vim-tags'
 
 call plug#end()
 
@@ -67,6 +69,7 @@ set tags+=~/.vim/tags/cpp
 set tags+=~/.vim/tags/gl
 set tags+=~/.vim/tags/sdl
 set tags+=~/.vim/tags/qt4
+set tags+=~/.vim/tags/
 
 " disable vi compatibility (emulation of old bugs)
 set nocompatible
@@ -91,42 +94,20 @@ set guifont=PragmataPro
 let g:ycm_rust_src_path="/home/eduardo/Developer/GitHub/rust-master/src/"
 let g:formatterpath = ['/home/eduardo/.cargo/bin/rustfmt', '/usr/bin/clang-format']
 
-map gc :call Comment()<CR>
-map gC :call Uncomment()<CR>
-
-function! Comment()
-	let ft = &filetype
-	if ft == 'php' || ft == 'ruby' || ft == 'sh' || ft == 'make' || ft == 'python' || ft == 'perl'
-		silent s/^/\#/
-	elseif ft == 'javascript' || ft == 'c' || ft == 'cpp' || ft == 'java' || ft == 'objc' || ft == 'scala' || ft == 'go'
-		silent s:^:\/\/:g
-	elseif ft == 'tex'
-		silent s:^:%:g
-	elseif ft == 'vim'
-		silent s:^:\":g
-	endif
-endfunction
-
-function! Uncomment()
-	let ft = &filetype
-	if ft == 'php' || ft == 'ruby' || ft == 'sh' || ft == 'make' || ft == 'python' || ft == 'perl'
-		silent s/^\#//
-	elseif ft == 'javascript' || ft == 'c' || ft == 'cpp' || ft == 'java' || ft == 'objc' || ft == 'scala' || ft == 'go'
-		silent s:^\/\/::g
-	elseif ft == 'tex'
-		silent s:^%::g
-	elseif ft == 'vim'
-		silent s:^\"::g
-	endif
-endfunction
-
 autocmd VimEnter * NERDTree
 autocmd BufEnter * NERDTreeMirror
 
-"CTRL-t to toggle tree view with CTRL-t
-nmap <silent> <C-t> :NERDTreeToggle<CR>
-"Set F2 to put the cursor to the nerdtree
-nmap <silent> <F2> :NERDTreeFind<CR>
+" set leader key
+let mapleader = ','
+
+" Create default mappings
+let g:NERDCreateDefaultMappings = 1
+
+" Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDDefaultAlign = 'left'
+
+" Add your own custom formats or override the defaults
+let g:NERDCustomDelimiters = { 'c': { 'left': '//','right': '' } }
 
 "enable mouse support
 set mouse=a
@@ -135,29 +116,43 @@ set mouse=a
 set autoread
 au CursorHold * checktime
 
-" line numbers
+" line numbers 
 :set number relativenumber
+
+" tags
+set tags=tags
 
 " Enhanced keyboard mappings
 "
-
 " in normal mode F3 will save the file
-nmap <F3> :w<CR>
+nmap <C-S> :w<CR>
 " in insert mode F3 will exit insert, save, enters insert again
-imap <F3> <ESC>:w<CR>i
+imap <C-S> <ESC>:w<CR>
+" in normal mode Ctrl + W will close the file.
+nmap <C-W> :q<CR>
+" in insert mode Ctrl + W will close the file.
+imap <C-W> <ESC>:q<CR>
+"CTRL-t to toggle tree view with CTRL-t
+nmap <silent> <C-t> :NERDTreeToggle<CR>
+"Set F2 to put the cursor to the nerdtree
+nmap <silent> <F2> :NERDTreeFind<CR>
 " autoformat
 nmap <F4> :Autoformat<CR>
 " switch between header/source with F4
 map <F5> :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
 " create doxygen comment
 map <F6> :Dox<CR>
+" remove comment
+map <F7> <plug>NERDCommenterUncomment<CR>
+" toggle comment
+map <F8>  <plug>NERDCommenterToggle<CR>
 " build using makeprg with <F7>
-map <F7> :!clear && cd build && cmake --build .<CR>
+map <F9> :!clear && cd build && cmake --build .<CR>
 " build using makeprg with <S-F7>
-map <S-F7> :make clean all<CR>
+map <S-F9> :make clean all<CR>
 " buld and run with <F8>
-map <F8> :!BASENAME=$(basename $(pwd)) && clear && cd build && cmake --build . && ./$BASENAME <CR>
+map <F10> :!BASENAME=$(basename $(pwd)) && clear && cd build && cmake --build . && ./$BASENAME <CR>
 " run
-map <F9> :!BASENAME=$(basename $(pwd)) && clear && cd build && ./$BASENAME
-" goto definition with F12
-map <F10> <C-]>
+map <F11> :!BASENAME=$(basename $(pwd)) && clear && cd build && ./$BASENAME
+" goto definition with F10
+map <F12> <C-]>
