@@ -38,10 +38,12 @@ Plug 'vim-scripts/DoxygenToolkit.vim'
 Plug 'chiel92/vim-autoformat'
 Plug 'scrooloose/nerdcommenter'
 Plug 'szw/vim-tags'
+Plug 'vbe0201/vimdiscord'
 
 call plug#end()
 
 set nocp
+set shell=/bin/zsh
 set updatetime=1000
 filetype plugin indent on
 
@@ -156,3 +158,12 @@ map <F10> :!BASENAME=$(basename $(pwd)) && clear && cd build && cmake --build . 
 map <F11> :!BASENAME=$(basename $(pwd)) && clear && cd build && ./$BASENAME
 " goto definition with F10
 map <F12> <C-]>
+
+" commands
+
+command! Vimm :!less /Users/eduardo/Developer/GitHub/edfloreshz/vimconfig/shortcuts.txt
+command! W :w
+command! Q :q
+command! Wq :wq 
+command! Qa :qa
+command! Wqa :wqa
