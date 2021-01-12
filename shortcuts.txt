@@ -1,3 +1,8 @@
+---------------- Vim Commands -----------------
+
+:New <name> <ext>   ->  Create new C/C++ source/header file.
+:Vimm               ->  Show this file.
+
 ---------------- Function Keys ----------------
 
 F2          ->  Focus on tree view.
