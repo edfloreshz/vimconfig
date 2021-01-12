@@ -39,6 +39,8 @@ Plug 'chiel92/vim-autoformat'
 Plug 'scrooloose/nerdcommenter'
 Plug 'szw/vim-tags'
 Plug 'vbe0201/vimdiscord'
+Plug 'tpope/vim-eunuch'
+Plug 'angelskieglazki/hcch.vim'
 
 call plug#end()
 
@@ -158,12 +160,17 @@ map <F10> :!BASENAME=$(basename $(pwd)) && clear && cd build && cmake --build . 
 map <F11> :!BASENAME=$(basename $(pwd)) && clear && cd build && ./$BASENAME
 " goto definition with F10
 map <F12> <C-]>
+" refresh file tree
+autocmd BufWritePost * NERDTreeFocus | execute 'normal R' | wincmd p
 
 " commands
 
-command! Vimm :!less /Users/eduardo/Developer/GitHub/edfloreshz/vimconfig/shortcuts.txt
+command! Vimm :!less $HOME/Developer/edfloreshz/vimconfig/shortcuts.txt
+command! Cfg :!vim ~/.vimrc
+command! Zfg :!vim ~/.zshrc
 command! W :w
 command! Q :q
 command! Wq :wq 
 command! Qa :qa
 command! Wqa :wqa
+command! -nargs=* New :CreateSource <args>
