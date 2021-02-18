@@ -104,16 +104,13 @@ autocmd BufEnter * NERDTreeMirror
 " set leader key
 let mapleader = ','
 
-" Create default mappings
+" create default mappings
 let g:NERDCreateDefaultMappings = 1
 
-" Align line-wise comment delimiters flush left instead of following code indentation
+" align line-wise comment delimiters flush left instead of following code indentation
 let g:NERDDefaultAlign = 'left'
 
-" Add your own custom formats or override the defaults
-let g:NERDCustomDelimiters = { 'c': { 'left': '//','right': '' } }
-
-"enable mouse support
+" enable mouse support
 set mouse=a
 
 " check file change every 4 seconds ('CursorHold') and reload the buffer upon detecting change
@@ -128,36 +125,38 @@ set tags=tags
 
 " Enhanced keyboard mappings
 "
+" redo with Y instead of Ctrl+R
+noremap Y <C-R>
 " in normal mode F3 will save the file
 nmap <C-S> :w<CR>
 " in insert mode F3 will exit insert, save, enters insert again
 imap <C-S> <ESC>:w<CR>
 " in normal mode Ctrl + W will close the file.
 nmap <C-W> :q<CR>
+" in normal mode Ctrl + Q will close Vim.
+nmap <C-Q> :wqa<CR>
 " in insert mode Ctrl + W will close the file.
 imap <C-W> <ESC>:q<CR>
+" in insert mode Ctrl + Q will close the file.
+imap <C-Q> <ESC>:wqa<CR>
 "CTRL-t to toggle tree view with CTRL-t
-nmap <silent> <C-t> :NERDTreeToggle<CR>
+nmap <silent> <F2> :NERDTreeToggle<CR>
 "Set F2 to put the cursor to the nerdtree
-nmap <silent> <F2> :NERDTreeFind<CR>
+nmap <silent> <C-M> :NERDTreeFind<CR>
 " autoformat
 nmap <F4> :Autoformat<CR>
-" switch between header/source with F4
-map <F5> :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
-" create doxygen comment
-map <F6> :Dox<CR>
 " remove comment
-map <F7> <plug>NERDCommenterUncomment<CR>
+vmap <C-_> <Plug>NERDCommenterToggle<CR>gv
 " toggle comment
-map <F8>  <plug>NERDCommenterToggle<CR>
-" build using makeprg with <F7>
-map <F9> :!clear && cd build && cmake --build .<CR>
-" build using makeprg with <S-F7>
-map <S-F9> :make clean all<CR>
-" buld and run with <F8>
-map <F10> :!BASENAME=$(basename $(pwd)) && clear && cd build && cmake --build . && ./$BASENAME <CR>
-" run
-map <F11> :!BASENAME=$(basename $(pwd)) && clear && cd build && ./$BASENAME
+nmap <C-_> <Plug>NERDCommenterToggle
+" check using cargo
+map <C-K> :!cargo check<CR>
+" build using cargo
+map <C-I> :!cargo build<CR>
+" run using cargo 
+map <C-A> :!cargo run<CR>
+" test using cargo
+map <C-T> :!cargo test<CR>
 " goto definition with F10
 map <F12> <C-]>
 " refresh file tree

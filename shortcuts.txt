@@ -5,7 +5,7 @@
 
 ---------------- Function Keys ----------------
 
-F2          ->  Focus on tree view.
+F2          ->  Toggle on tree view.
 F4          ->  Will autoformat the file.
 F5          ->  Will switch between header/source..
 F6          ->  Will create doxygen comment.
@@ -18,7 +18,6 @@ F12         ->  Will go to definition.
 ---------------- Coding Commands ----------------
 
 Ctrl + P    ->	Search.
-Ctrl + T    ->	Show/Hide tree view.
 Ctrl + O    ->  Jump to previous location.
 Ctrl + J    ->  Jump to next location.
 Ctrl + S    ->  In normal mode will save the file.
